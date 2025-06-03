@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A challenging Sudoku game with multiple difficulty levels and features">
+    <title>Sudoku Mastermind</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <h1><span id="game-icon" aria-label="Puzzle icon">🧩</span> Sudoku Mastermind</h1>
+        <p>Challenge Your Logic, Sharpen Your Mind!</p>
+    </header>
+
+    <!-- Main Game Section -->
+    <main>
+        <!-- Game Controls Section -->
+        <section class="game-controls-container">
+            <div class="game-setup">
+                <div class="difficulty-selector">
+                    <label for="difficulty">Difficulty: </label>
+                    <select id="difficulty" aria-label="Select game difficulty">
+                        <option value="easy">Easy</option>
+                        <option value="medium" selected>Medium</option>
+                        <option value="hard">Hard</option>
+                        <option value="expert">Expert</option>
+                    </select>
+                </div>
+                <button id="new-game-btn" aria-label="Start new game">New Game</button>
+            </div>
+
+            <div class="ingame-controls">
+                <button id="reset-btn" aria-label="Reset current game">Reset</button>
+                <button id="hint-btn" aria-label="Get a hint">Hint <span id="hint-count">(3)</span></button>
+                <button id="check-solution-btn" aria-label="Check current solution">Check Solution</button>
+            </div>
+        </section>
+
+        <!-- Game Board Section -->
+        <section id="sudoku-board-container">
+            <div id="sudoku-board" role="grid" aria-label="Sudoku game board"></div>
+            <div id="timer-container">
+                Time: <span id="timer">00:00</span>
+            </div>
+        </section>
+
+        <!-- Message Display Area -->
+        <div id="message-area" class="message" role="alert" aria-live="polite"></div>
+
+        <!-- Stats and Theme Section -->
+        <section class="stats-and-theme">
+            <div id="stats-container">
+                <h2>Player Stats</h2>
+                <p>Puzzles Solved: <span id="puzzles-solved">0</span></p>
+                <p>Fastest Time (Medium): <span id="fastest-time">N/A</span></p>
+                <p>Total Time Played: <span id="total-time-played">0m 0s</span></p>
+                <button id="reset-stats-btn" aria-label="Reset all statistics">Reset Stats</button>
+            </div>
+
+            <div class="theme-switcher">
+                <label for="theme-toggle" class="theme-toggle-label">
+                    <input type="checkbox" id="theme-toggle" aria-label="Toggle dark mode">
+                    <span class="slider"></span>
+                    Dark Mode
+                </label>
+            </div>
+        </section>
+    </main>
+
+    <!-- Reset Game Modal -->
+    <div id="reset-modal" class="modal" role="dialog" aria-labelledby="reset-modal-title">
+        <div class="modal-content">
+            <span class="close-btn" id="close-reset-modal" aria-label="Close reset confirmation">&times;</span>
+            <h2 id="reset-modal-title">Confirm Reset</h2>
+            <p>Are you sure you want to reset the board? All your current progress on this puzzle will be lost.</p>
+            <div class="modal-actions">
+                <button id="confirm-reset-btn" class="confirm-btn">Yes, Reset</button>
+                <button id="cancel-reset-btn" class="cancel-btn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reset Stats Modal -->
+    <div id="reset-stats-modal" class="modal" role="dialog" aria-labelledby="reset-stats-modal-title">
+        <div class="modal-content">
+            <span class="close-btn" id="close-reset-stats-modal" aria-label="Close stats reset confirmation">&times;</span>
+            <h2 id="reset-stats-modal-title">Confirm Reset Stats</h2>
+            <p>Are you sure you want to reset all your statistics? This action cannot be undone.</p>
+            <div class="modal-actions">
+                <button id="confirm-reset-stats-btn" class="confirm-btn">Yes, Reset Stats</button>
+                <button id="cancel-reset-stats-btn" class="cancel-btn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>Happy Coding! 🧠</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

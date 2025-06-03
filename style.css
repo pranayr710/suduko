@@ -1,0 +1,458 @@
+/* ==========================================================================
+   Variables and Theme Configuration
+   ========================================================================== */
+:root {
+    /* Light Theme Colors */
+    --primary-bg: #f4f4f4;
+    --secondary-bg: #ffffff;
+    --text-color: #333;
+    --border-color: #ccc;
+    --input-bg: #fff;
+    --input-text-color: #000;
+    --prefilled-text-color: #2c3e50;
+    --prefilled-bg: #ecf0f1;
+    --highlight-color: #3498db;
+    --error-color: #e74c3c;
+    --success-color: #2ecc71;
+    --button-bg: #3498db;
+    --button-text-color: #ffffff;
+    --button-hover-bg: #2980b9;
+    --grid-line-color: #999;
+    --thick-grid-line-color: #333;
+    --modal-bg: rgba(0, 0, 0, 0.6);
+    --cell-hover-bg: #e0e0e0;
+}
+
+/* Dark Theme Colors */
+[data-theme="dark"] {
+    --primary-bg: #2c3e50;
+    --secondary-bg: #34495e;
+    --text-color: #ecf0f1;
+    --border-color: #7f8c8d;
+    --input-bg: #bdc3c7;
+    --input-text-color: #2c3e50;
+    --prefilled-text-color: #ecf0f1;
+    --prefilled-bg: #2c3e50;
+    --highlight-color: #3498db;
+    --error-color: #e74c3c;
+    --success-color: #2ecc71;
+    --button-bg: #3498db;
+    --button-text-color: #ffffff;
+    --button-hover-bg: #5dade2;
+    --grid-line-color: #7f8c8d;
+    --thick-grid-line-color: #ecf0f1;
+    --modal-bg: rgba(0, 0, 0, 0.8);
+    --cell-hover-bg: #4a6278;
+}
+
+/* ==========================================================================
+   Base Styles
+   ========================================================================== */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: var(--primary-bg);
+    color: var(--text-color);
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: background-color 0.3s, color 0.3s;
+    line-height: 1.6;
+}
+
+/* ==========================================================================
+   Header Styles
+   ========================================================================== */
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5em;
+    color: var(--highlight-color);
+}
+
+header #game-icon {
+    font-size: 1em;
+    vertical-align: middle;
+}
+
+header p {
+    font-size: 1.1em;
+    color: var(--text-color);
+}
+
+/* ==========================================================================
+   Main Game Layout
+   ========================================================================== */
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 700px;
+}
+
+/* Game Controls */
+.game-controls-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 500px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.game-setup, .ingame-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+/* Form Elements */
+.difficulty-selector label,
+.theme-switcher label {
+    font-size: 0.9em;
+}
+
+select, button {
+    padding: 8px 12px;
+    font-size: 0.9em;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: var(--button-bg);
+    color: var(--button-text-color);
+    transition: background-color 0.2s;
+}
+
+select {
+    background-color: var(--secondary-bg);
+    color: var(--text-color);
+}
+
+button:hover {
+    background-color: var(--button-hover-bg);
+}
+
+/* ==========================================================================
+   Sudoku Board Styles
+   ========================================================================== */
+#sudoku-board-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+#sudoku-board {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    grid-template-rows: repeat(9, 1fr);
+    width: 90vw;
+    height: 90vw;
+    max-width: 500px;
+    max-height: 500px;
+    border: 3px solid var(--thick-grid-line-color);
+    background-color: var(--secondary-bg);
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    margin-bottom: 10px;
+}
+
+.sudoku-cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid var(--grid-line-color);
+    font-size: clamp(16px, 4vw, 24px);
+    background-color: var(--input-bg);
+}
+
+.sudoku-cell input {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    border: none;
+    outline: none;
+    font-size: inherit;
+    background-color: transparent;
+    color: var(--input-text-color);
+    padding: 0;
+}
+
+.sudoku-cell input:disabled {
+    font-weight: bold;
+    color: var(--prefilled-text-color);
+    background-color: var(--prefilled-bg);
+}
+
+/* Grid Border Styles */
+.sudoku-cell:nth-child(3n) {
+    border-right: 2px solid var(--thick-grid-line-color);
+}
+
+.sudoku-cell:nth-child(9n) {
+    border-right: 1px solid var(--grid-line-color);
+}
+
+.border-bottom-thick {
+    border-bottom: 2px solid var(--thick-grid-line-color) !important;
+}
+
+.border-right-thick {
+    border-right: 2px solid var(--thick-grid-line-color) !important;
+}
+
+/* Cell States */
+.sudoku-cell input:focus {
+    background-color: var(--cell-hover-bg);
+}
+
+.sudoku-cell.focused {
+    outline: 2px solid var(--highlight-color);
+    z-index: 10;
+}
+
+.sudoku-cell.invalid {
+    background-color: var(--error-color) !important;
+    color: white !important;
+}
+
+.sudoku-cell.invalid input {
+    color: white !important;
+}
+
+.sudoku-cell.hinted {
+    animation: highlight-hint 1s ease-out;
+}
+
+@keyframes highlight-hint {
+    0%, 100% { background-color: var(--input-bg); }
+    50% { background-color: var(--success-color); }
+}
+
+/* ==========================================================================
+   Game Status and Messages
+   ========================================================================== */
+#timer-container {
+    font-size: 1.1em;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+#message-area {
+    margin: 15px 0;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+    min-height: 20px;
+}
+
+.message.success {
+    background-color: var(--success-color);
+    color: white;
+}
+
+.message.error {
+    background-color: var(--error-color);
+    color: white;
+}
+
+/* ==========================================================================
+   Stats and Theme Section
+   ========================================================================== */
+.stats-and-theme {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 500px;
+    margin-top: 20px;
+}
+
+#stats-container {
+    background-color: var(--secondary-bg);
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+#stats-container h2 {
+    margin-top: 0;
+    color: var(--highlight-color);
+    font-size: 1.2em;
+}
+
+/* Theme Switcher */
+.theme-switcher {
+    margin-left: 20px;
+}
+
+.theme-toggle-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+}
+
+#theme-toggle {
+    display: none;
+}
+
+.slider {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+    background-color: var(--border-color);
+    border-radius: 12px;
+    margin-right: 10px;
+    transition: background-color 0.3s;
+}
+
+.slider::before {
+    content: "";
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.3s;
+}
+
+#theme-toggle:checked + .slider {
+    background-color: var(--highlight-color);
+}
+
+#theme-toggle:checked + .slider::before {
+    transform: translateX(26px);
+}
+
+/* ==========================================================================
+   Modal Styles
+   ========================================================================== */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--modal-bg);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: var(--secondary-bg);
+    padding: 20px;
+    border-radius: 5px;
+    max-width: 400px;
+    width: 90%;
+    position: relative;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.close-btn {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--text-color);
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: var(--highlight-color);
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.modal-actions button.confirm-btn {
+    background-color: var(--error-color);
+}
+
+.modal-actions button.confirm-btn:hover {
+    background-color: #c0392b;
+}
+
+.modal-actions button.cancel-btn {
+    background-color: var(--border-color);
+}
+
+.modal-actions button.cancel-btn:hover {
+    background-color: #95a5a6;
+}
+
+/* ==========================================================================
+   Footer Styles
+   ========================================================================== */
+footer {
+    margin-top: 30px;
+    text-align: center;
+    color: var(--text-color);
+}
+
+/* ==========================================================================
+   Responsive Design
+   ========================================================================== */
+@media (max-width: 600px) {
+    header h1 {
+        font-size: 2em;
+    }
+
+    .game-controls-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .game-setup, .ingame-controls {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .game-setup > *, .ingame-controls > * {
+        margin: 5px;
+    }
+
+    .difficulty-selector {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+
+    #sudoku-board {
+        width: 95vw;
+        height: 95vw;
+    }
+
+    .stats-and-theme {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #stats-container, .theme-switcher {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    .modal-content {
+        width: 95%;
+        margin: 10px;
+    }
+}
